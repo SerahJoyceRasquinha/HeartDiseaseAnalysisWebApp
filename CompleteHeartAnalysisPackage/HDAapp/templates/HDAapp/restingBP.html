@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resting Blood Pressure Analysis</title>
+    <style>
+        /* Reset default margin and padding */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: white; /* White background for the body */
+            color: black; /* Black text color */
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: black; /* Black background for the header */
+            color: white; /* White text color */
+            text-align: center;
+            padding: 1rem;
+        }
+
+        header h1 {
+            font-size: 2rem; /* Adjust font size as needed */
+            margin-top:3%;
+        }
+        .back {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            display: inline-block;
+            padding: 10px 20px;
+            border-radius: 20px;
+            border: 2px solid lightblue;
+            background-color: lightblue;
+            color: black;
+            text-align: center;
+            line-height: 1.5;
+            font-size: 1rem;
+            font-weight: bold;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            z-index: 3;
+        }
+        .back:hover {
+            border-color: darkblue;
+            background-color: darkblue;
+            color: white;
+        }
+
+        main {
+            max-width: 2000px; /* Increase max-width for larger charts */
+            margin: 0 auto; /* Center align main content */
+        }
+
+        canvas {
+            display: block;
+            width: 1000px; /* Set a fixed width for the canvas */
+            height: 400px; /* Adjust height as needed */
+            margin: 0 auto; /* Center align the canvas */
+            border: 1px solid black;
+        }
+        
+        .Section{
+            border: 2px solid black;
+            padding: 10px;
+            margin:2%;
+            padding-left:1.5%;
+        }
+
+        ol{
+            margin-left:3%;
+        }
+
+        ul{
+            margin-left:5%;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 20px;
+            margin-top:3%;
+        }
+
+        .nav-button {
+            padding: 10px 20px;
+            border-radius: 20px;
+            border: 2px solid white;
+            background-color: transparent;
+            color: white;
+            text-align: center;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .nav-button:hover {
+            border-color: black;
+            background-color: white;
+            color: black;
+        }
+    </style>
+</head>
+<body>
+    <a href="{% url 'homepage' %}#mainContent" class="back">Back</a>
+    <header>
+        <h1>Analysis Based On Past Data 📊</h1>
+        <div class="navigation">
+            <button class="nav-button" onclick="window.location.href='{% url 'exang' %}'">Exercise-Induced Angina Analysis</button>
+            <button class="nav-button" onclick="window.location.href='{% url 'chestpain' %}'">Chest Pain Analysis</button>
+            <button class="nav-button" onclick="window.location.href='{% url 'fastbs' %}'">Fasting Blood Sugar Analysis</button>
+            <button class="nav-button" onclick="window.location.href='{% url 'restingelectro' %}'">Resting Electrocardiogram Analysis</button>
+            <button class="nav-button" onclick="window.location.href='{% url 'slope' %}'">Slope Analysis</button>
+            <button class="nav-button" onclick="window.location.href='{% url 'bloodves' %}'">Blood Vessel Count Analysis</button>
+            <button class="nav-button" onclick="window.location.href='{% url 'restingBP' %}'">Resting Blood Pressure</button>
+        </div>
+    </header>
+    <main>    
+        <div class="Section">
+            <canvas id="bpChart"></canvas>
+        </div>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        const chartData = {{ chart_data|safe }};  
+        console.log(chartData);
+
+        // Process data for grouped stacked bar chart
+        const ageGroups = [...new Set(chartData.map(item => item.age_group))];
+        const maleData = ageGroups.map(ageGroup => {
+            const entry = chartData.find(item => item.age_group === ageGroup && item.gender === 'M') || {};
+            return {
+                normal: entry.normal || 0,
+                abnormal: entry.abnormal || 0,
+            };
+        });
+
+        const femaleData = ageGroups.map(ageGroup => {
+            const entry = chartData.find(item => item.age_group === ageGroup && item.gender === 'F') || {};
+            return {
+                normal: entry.normal || 0,
+                abnormal: entry.abnormal || 0,
+            };
+        });
+
+        // Create chart
+        const ctx = document.getElementById('bpChart').getContext('2d');
+        const bpChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ageGroups,
+                datasets: [
+                    // Male dataset
+                    {
+                        label: 'Male - Normal BP',
+                        data: maleData.map(data => data.normal),
+                        backgroundColor: '#00ffe1',
+                        stack: 'male'
+                    },
+                    {
+                        label: 'Male - Abnormal BP',
+                        data: maleData.map(data => data.abnormal),
+                        backgroundColor: '#ff7f7f',
+                        stack: 'male'
+                    },
+                    // Female dataset
+                    {
+                        label: 'Female - Normal BP',
+                        data: femaleData.map(data => data.normal),
+                        backgroundColor: '#cf47f5',
+                        stack: 'female'
+                    },
+                    {
+                        label: 'Female - Abnormal BP',
+                        data: femaleData.map(data => data.abnormal),
+                        backgroundColor: '#ffb84d',
+                        stack: 'female'
+                    },
+                ]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { position: 'top' },
+                    title: {
+                        display: true,
+                        text: 'Stacked Bar Chart: Resting BP by Age Group and Gender'
+                    }
+                },
+                scales: {
+                    x: {
+                        title: { display: true, text: 'Age Group' }
+                    },
+                    y: {
+                        title: { display: true, text: 'Number of People' },
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analysis</title>
+    <style>
+        /* Reset default margin and padding */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: white; /* White background for the body */
+            color: black; /* Black text color */
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: black; /* Black background for the header */
+            color: white; /* White text color */
+            text-align: center;
+            padding: 1rem;
+        }
+
+        header h1 {
+            font-size: 2rem; /* Adjust font size as needed */
+            margin-top:3%;
+        }
+        .back {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            display: inline-block;
+            padding: 10px 20px;
+            border-radius: 20px;
+            border: 2px solid lightblue;
+            background-color: lightblue;
+            color: black;
+            text-align: center;
+            line-height: 1.5;
+            font-size: 1rem;
+            font-weight: bold;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            z-index: 3;
+        }
+        .back:hover {
+            border-color: darkblue;
+            background-color: darkblue;
+            color: white;
+        }
+
+        main {
+            max-width: 2000px; /* Increase max-width for larger charts */
+            margin: 0 auto; /* Center align main content */
+        }
+
+        canvas {
+            display: block;
+            width: 1000px; /* Set a fixed width for the canvas */
+            height: 400px; /* Adjust height as needed */
+            margin: 0 auto; /* Center align the canvas */
+            border: 1px solid black;
+        }
+        
+        .Section{
+            border: 2px solid black;
+            padding: 10px;
+            margin:2%;
+            padding-left:1.5%;
+        }
+
+        ol{
+            margin-left:3%;
+        }
+
+        ul{
+            margin-left:5%;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 20px;
+            margin-top:3%;
+        }
+
+        .nav-button {
+            padding: 10px 20px;
+            border-radius: 20px;
+            border: 2px solid white;
+            background-color: transparent;
+            color: white;
+            text-align: center;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .nav-button:hover {
+            border-color: black;
+            background-color: white;
+            color: black;
+        }
+    </style>
+</head>
+<body>
+    <a href="{% url 'homepage' %}#mainContent" class="back">Back</a>
+    <header>
+        <h1>Analysis Based On Past Data 📊</h1>
+        <div class="navigation">
+            <button class="nav-button" onclick="window.location.href='{% url 'exang' %}'">Exercise-Induced Angina Analysis</button>
+            <button class="nav-button" onclick="window.location.href='{% url 'chestpain' %}'">Chest Pain Analysis</button>
+            <button class="nav-button" onclick="window.location.href='{% url 'fastbs' %}'">Fasting Blood Sugar Analysis</button>
+            <button class="nav-button" onclick="window.location.href='{% url 'restingelectro' %}'">Resting Electrocardiogram Analysis</button>
+            <button class="nav-button" onclick="window.location.href='{% url 'slope' %}'">Slope Analysis</button>
+            <button class="nav-button" onclick="window.location.href='{% url 'bloodves' %}'">Blood Vessel Count Analysis</button>
+            <button class="nav-button" onclick="window.location.href='{% url 'restingBP' %}'">Resting Blood Pressure</button>
+        </div>
+    </header>
+    <main>    
+        <div class="Section">
+            <h1>Chest Pain in the Context of Cardiovascular Disease (CVD)</h1>
+
+            <h2>Definition</h2>
+            <p>
+                <strong>Chest pain</strong> refers to any discomfort or pain that occurs in the chest area, which may involve 
+                the heart or other structures in the chest. In the context of <strong>cardiovascular disease (CVD)</strong>, 
+                chest pain is a significant symptom that can indicate serious conditions such as <strong>angina</strong>, 
+                <strong>myocardial infarction (heart attack)</strong>, or other cardiac events. It can also result from 
+                non-cardiac issues, such as gastrointestinal problems or musculoskeletal conditions.
+            </p>
+            <br>
+            <h2>Causes of Chest Pain in CVD Context</h2>
+            <p>
+                Chest pain can arise from various causes, particularly related to cardiovascular health. Some common causes include:
+            </p>
+
+            <ul>
+                <li><strong>Coronary Artery Disease (CAD):</strong>
+                    <ul>
+                        <li>Narrowing or blockage of coronary arteries due to plaque buildup, restricting blood flow to the heart muscle.</li>
+                    </ul>
+                </li>
+                <li><strong>Angina Pectoris:</strong>
+                    <ul>
+                        <li>Chest pain or discomfort that occurs when the heart muscle doesn’t receive enough oxygen-rich blood. It can be stable (predictable) or unstable (unexpected and more severe).</li>
+                    </ul>
+                </li>
+                <li><strong>Myocardial Infarction (Heart Attack):</strong>
+                    <ul>
+                        <li>Occurs when blood flow to a part of the heart is blocked for an extended period, causing damage to the heart muscle.</li>
+                    </ul>
+                </li>
+                <li><strong>Aortic Dissection:</strong>
+                    <ul>
+                        <li>A tear in the inner layer of the aorta, leading to severe chest pain that may radiate to the back.</li>
+                    </ul>
+                </li>
+                <li><strong>Pericarditis:</strong>
+                    <ul>
+                        <li>Inflammation of the pericardium (the protective sac around the heart), causing sharp chest pain that may worsen with deep breathing.</li>
+                    </ul>
+                </li>
+                <li><strong>Pulmonary Embolism:</strong>
+                    <ul>
+                        <li>A blood clot that travels to the lungs, leading to chest pain, shortness of breath, and potentially life-threatening conditions.</li>
+                    </ul>
+                </li>
+                <li><strong>Other Non-Cardiac Causes:</strong>
+                    <ul>
+                        <li><strong>Gastroesophageal Reflux Disease (GERD):</strong> Acid reflux can cause chest pain that mimics heart-related pain.</li>
+                        <li><strong>Musculoskeletal Issues:</strong> Strained muscles or costochondritis (inflammation of the cartilage connecting ribs to the sternum) can lead to chest discomfort.</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <h2>Effects of Chest Pain on Cardiovascular Health</h2>
+            <p>
+                The impact of chest pain varies based on its cause and severity. Here’s how it can affect cardiovascular health:
+            </p>
+
+            <h3>Short-term Effects:</h3>
+            <ul>
+                <li><strong>Increased Anxiety and Stress:</strong> Chest pain often leads to panic or anxiety, potentially exacerbating cardiovascular issues.</li>
+                <li><strong>Decreased Physical Activity:</strong> Individuals may limit their activities due to fear of pain, contributing to deconditioning and worsening cardiovascular health.</li>
+            </ul>
+
+            <h3>Long-term Effects:</h3>
+            <ul>
+                <li><strong>Heart Damage:</strong> Prolonged or severe chest pain from myocardial infarction can lead to irreversible damage to heart tissue, affecting heart function.</li>
+                <li><strong>Heart Failure:</strong> Recurrent ischemic events can weaken the heart, leading to heart failure and reduced quality of life.</li>
+                <li><strong>Arrhythmias:</strong> Damage to heart tissue can lead to irregular heartbeats, increasing the risk of sudden cardiac arrest.</li>
+                <li><strong>Reduced Life Expectancy:</strong> Persistent chest pain associated with untreated CVD can lead to more severe cardiovascular events and increased mortality risk.</li>
+            </ul>
+            <br>
+            <h2>Prevention and Management of Chest Pain for CVD Prevention</h2>
+            <p>
+                Preventive strategies and management practices can significantly reduce the risk of chest pain and its underlying causes:
+            </p>
+
+            <h3>1. Lifestyle Modifications:</h3>
+            <ul>
+                <li><strong>Heart-Healthy Diet:</strong>
+                    <ul>
+                        <li>Adopt a diet rich in fruits, vegetables, whole grains, and lean proteins while limiting saturated fats, trans fats, and cholesterol.</li>
+                    </ul>
+                </li>
+                <li><strong>Regular Physical Activity:</strong>
+                    <ul>
+                        <li>Engage in at least 150 minutes of moderate aerobic exercise per week to improve cardiovascular health and maintain a healthy weight.</li>
+                    </ul>
+                </li>
+                <li><strong>Weight Management:</strong>
+                    <ul>
+                        <li>Achieving and maintaining a healthy weight reduces strain on the heart and lowers the risk of CVD.</li>
+                    </ul>
+                </li>
+                <li><strong>Smoking Cessation:</strong>
+                    <ul>
+                        <li>Quitting smoking significantly lowers the risk of developing coronary artery disease and other cardiovascular problems.</li>
+                    </ul>
+                </li>
+                <li><strong>Stress Management:</strong>
+                    <ul>
+                        <li>Practice relaxation techniques such as mindfulness, meditation, or yoga to reduce stress levels that can contribute to cardiovascular issues.</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <h3>2. Regular Health Screenings:</h3>
+            <ul>
+                <li><strong>Blood Pressure Monitoring:</strong>
+                    <ul>
+                        <li>Regularly check blood pressure levels to identify and manage hypertension.</li>
+                    </ul>
+                </li>
+                <li><strong>Cholesterol Testing:</strong>
+                    <ul>
+                        <li>Monitor lipid levels to maintain a healthy balance and prevent atherosclerosis.</li>
+                    </ul>
+                </li>
+                <li><strong>Diabetes Management:</strong>
+                    <ul>
+                        <li>Regular blood sugar checks and management are vital for individuals with diabetes to prevent complications affecting the heart.</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <h3>3. Medications:</h3>
+            <ul>
+                <li><strong>Antiplatelet Agents:</strong>
+                    <ul>
+                        <li>Medications like aspirin can help prevent blood clots and reduce the risk of heart attacks.</li>
+                    </ul>
+                </li>
+                <li><strong>Statins:</strong>
+                    <ul>
+                        <li>Cholesterol-lowering medications help manage lipid levels and reduce cardiovascular risk.</li>
+                    </ul>
+                </li>
+                <li><strong>Beta-blockers and ACE Inhibitors:</strong>
+                    <ul>
+                        <li>Used to manage heart rate, blood pressure, and overall cardiac workload in patients with existing heart disease.</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <h3>4. Emergency Preparedness:</h3>
+            <ul>
+                <li><strong>Recognize Symptoms:</strong>
+                    <ul>
+                        <li>Understand the warning signs of serious cardiac events, such as severe chest pain, shortness of breath, or radiating pain to the arms, jaw, or back.</li>
+                    </ul>
+                </li>
+                <li><strong>Seek Immediate Help:</strong>
+                    <ul>
+                        <li>Prompt medical attention is crucial in the event of severe chest pain to minimize heart damage.</li>
+                    </ul>
+                </li>
+            </ul>
+            <br>
+            <h2>Conclusion</h2>
+            <p>
+                Chest pain is a critical symptom in the context of cardiovascular disease that can indicate serious underlying issues. 
+                Understanding its causes, effects, and preventive measures is essential for managing heart health effectively. 
+                Early detection, lifestyle changes, and medical interventions can significantly reduce the risk of chest pain 
+                and related cardiovascular complications, ultimately improving long-term health outcomes.
+            </p>
+            <br>
+            <p>This chart visualizes the relationship of Fasting Blood Sugar with respect to both genders of each age respectively and the likelihood of having heart disease.</p>
+                <ol type="1">
+                    <li><b>Gender Categories (0 = Female, 1 = Male):</b></li>
+                    <ul>
+                        <li>The chart shows two stacked sections for each age group.</li>
+                        <li>The blue bar represents male individuals in that age group.</li>
+                        <li>The pink bar represents female individuals in that age group.</li>
+                    </ul>
+                    <li><b>Segregation based On Who has what type of Chest Pain (0 = No chest Pain, 1 = Mild Chest Pain, 2 = Moderate Chest Pain, 3 = Severe Chest Pain):</b></li>
+                    <ul>
+                        <li>Sky Blue =  Males who have No Chest Pain. </li>
+                        <li>Light Blue =  Males who have Mild Chest Pain.</li>
+                        <li>Blue =  Males who have Moderate Chest Pain. </li>
+                        <li>Dark Blue =  Males who have Severe Chest Pain.</li>
+                        <li>Light Pink =  Females who have No Chest Pain. </li>
+                        <li>Pink =  Females who have Mild Chest Pain.</li>
+                        <li>Dark Pink =  Females who have Moderate Chest Pain. </li>
+                        <li>Maroon =  Females who have Severe Chest Pain.</li>
+                    </ul>
+            <canvas id="cpChart"></canvas>
+        </div>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        const chartData = {{ chart_data|safe }};  // Data from Django backend
+    
+        // Extract unique ages and prepare datasets for Chart.js
+        const ages = [...new Set(chartData.map(item => item.age))];
+    
+        const maleData = ages.map(age => {
+            const entry = chartData.find(item => item.age === age && item.gender === 1) || {};
+            return {
+                no_cp: entry[0] || 0,
+                mild_cp: entry[1] || 0,
+                moderate_cp: entry[2] || 0,
+                severe_cp: entry[3] || 0,
+            };
+        });
+    
+        const femaleData = ages.map(age => {
+            const entry = chartData.find(item => item.age === age && item.gender === 0) || {};
+            return {
+                no_cp: entry[0] || 0,
+                mild_cp: entry[1] || 0,
+                moderate_cp: entry[2] || 0,
+                severe_cp: entry[3] || 0,
+            };
+        });
+    
+        const ctx = document.getElementById('cpChart').getContext('2d');
+        const anginaChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ages,
+                datasets: [
+                    // Male datasets
+                    {
+                        label: 'Male - no cp',
+                        data: maleData.map(data => data.no_cp),
+                        backgroundColor: '#00ffe1',
+                        stack: 'male',
+                    },
+                    {
+                        label: 'Male - mild cp',
+                        data: maleData.map(data => data.mild_cp),
+                        backgroundColor: '#0080ff',
+                        stack: 'male',
+                    },
+                    {
+                        label: 'Male - moderate cp',
+                        data: maleData.map(data => data.moderate_cp),
+                        backgroundColor: '#0800ff',
+                        stack: 'male',
+                    },
+                    {
+                        label: 'Male - severe cp',
+                        data: maleData.map(data => data.severe_cp),
+                        backgroundColor: '#040161',
+                        stack: 'male',
+                    },
+                    // Female datasets
+                    {
+                        label: 'Female - no cp',
+                        data: femaleData.map(data => data.no_cp),
+                        backgroundColor: '#cf47f5',
+                        stack: 'female',
+                    },
+                    {
+                        label: 'Female - mild cp',
+                        data: femaleData.map(data => data.mild_cp),
+                        backgroundColor: '#9004b8',
+                        stack: 'female',
+                    },
+                    {
+                        label: 'Female - moderate cp',
+                        data: femaleData.map(data => data.moderate_cp),
+                        backgroundColor: '#700156',
+                        stack: 'female',
+                    },
+                    {
+                        label: 'Female - severe cp',
+                        data: femaleData.map(data => data.severe_cp),
+                        backgroundColor: '#61021e',
+                        stack: 'female',
+                    },
+                ]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: true,
+                        text: 'Stacked Bar Chart: Chest Pain Analysis by Age and Gender'
+                    }
+                },
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Age'
+                        }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Number of People In each Age divided on Gender'
+                        },
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+    
+</body>
+</html>

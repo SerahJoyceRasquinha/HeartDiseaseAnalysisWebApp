@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Quick Intro</title>
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            overflow-x: hidden;
+            font-family: Arial, sans-serif;
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: #191919;
+            color: white;
+        }
+        .back {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            display: inline-block;
+            padding: 10px 20px;
+            border-radius: 20px;
+            border: 2px solid lightblue;
+            background-color: lightblue;
+            color: black;
+            text-align: center;
+            font-size: 1rem;
+            font-weight: bold;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            z-index: 3;
+        }
+        .back:hover {
+            border-color: darkblue;
+            background-color: darkblue;
+            color: white;
+        }
+        header {
+            background-color: black;
+            color: white;
+            font-size: 2rem;
+            text-align: center;
+            padding: 30px;
+        }
+        .navigation {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 20px;
+        }
+        .nav-button {
+            padding: 10px 20px;
+            border-radius: 20px;
+            border: 2px solid white;
+            background-color: transparent;
+            color: white;
+            text-align: center;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .nav-button:hover {
+            border-color: black;
+            background-color: white;
+            color: black;
+        }
+        .content-wrapper {
+            flex: 1;
+            width: 100%;
+            display: flex;
+            position: relative;
+            z-index: 1; /* Make sure it is below the footer */
+        }
+        .content-section {
+            flex: 1; /* Allow sections to fill the wrapper */
+            display: none; /* Hide all sections by default */
+            padding: 1rem;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+            position: relative; /* Allows content to push footer */
+            z-index: 0; /* Ensure content is behind footer */
+        }
+        .content-text {
+            margin-right: 1rem;
+            font-size: 120%;
+        }
+        .content-image {
+            max-width: 400px;
+            width: 100%;
+            height: 90%;
+            margin-left: 1rem;
+            padding-right: 5rem;
+        }
+        .content-section.active {
+            display: flex; /* Show the active section */
+            opacity: 1;
+        }
+        footer {
+            background: #000000;
+            color: #fff;
+            text-align: center;
+            padding: 1rem 0;
+            width: 100%;
+            margin-top: auto; /* Always push footer to the bottom */
+        }
+    </style>
+</head>
+<body>
+    <a href="{% url 'homepage' %}#mainContent" class="back">Back</a>
+    <header>
+        <h1>Hold Your Pulse 🩺</h1>
+        <div class="navigation">
+            <button class="nav-button" data-target="definition">Definition</button>
+            <button class="nav-button" data-target="causes">Causes</button>
+            <button class="nav-button" data-target="symptoms">Symptoms</button>
+            <button class="nav-button" data-target="diagnosis">Diagnosis</button>
+            <button class="nav-button" data-target="treatment">Treatment</button>
+            <button class="nav-button" data-target="prevention">Prevention</button>
+            <button class="nav-button" data-target="trends">Recent Trends</button>
+        </div>
+    </header>
+
+    <div class="content-wrapper">
+        <div id="definition" class="content-section active">
+            <div class="content-text">
+                <h2>What is Heart Disease?</h2>
+                <p>Heart disease refers to a range of conditions that affect the heart.<br>
+                    Heart disease is perceived as the deadliest disease in human life across the world.<br>
+                    The heart cannot push the required quantity of blood to the remaining organs.<br>
+                    The most common type is coronary artery disease (CAD), which involves the narrowing or blockage of coronary arteries.</p>
+            </div>
+            <img src="https://cdn-ilbdkgn.nitrocdn.com/KyPgQQQAVfBmOoLeBzkzAekksAGOgYiS/assets/images/optimized/rev-e6c2f4d/www.modernheartandvascular.com/wp-content/uploads/2022/10/Coronary-Artery-Disease-CAD.png" class="content-image">
+        </div>
+
+        <div id="causes" class="content-section">
+            <div class="content-text">
+                <h2>Causes</h2>
+                <ul>
+                    <li>Atherosclerosis: Build-up of fatty deposits (plaque) in the arteries.</li>
+                    <li>Hypertension: Increased pressure in arteries.</li>
+                    <li>High Cholesterol: Elevated LDL levels and low HDL levels.</li>
+                    <li>Smoking: Damages blood vessels and reduces oxygen in the blood.</li>
+                    <li>Diabetes: High blood sugar damages blood vessels.</li>
+                    <li>Obesity: Excess weight increases risk factors.</li>
+                    <li>Genetics: Family history of heart disease.</li>
+                    <li>Sedentary Lifestyle: Lack of physical activity.</li>
+                    <li>Poor Diet: Diets high in fats and cholesterol.</li>
+                </ul>
+            </div>
+            <img src="https://news.flinders.edu.au/wp-content/uploads/2021/05/Smoking.jpg" class="content-image">
+        </div>
+
+        <div id="symptoms" class="content-section">
+            <div class="content-text">
+                <h2>Symptoms</h2>
+                <ul>
+                    <li>Chest Pain or Discomfort.</li>
+                    <li>Shortness of Breath.</li>
+                    <li>Fatigue.</li>
+                    <li>Palpitations.</li>
+                    <li>Swelling in legs, ankles, or feet.</li>
+                    <li>Dizziness or Lightheadedness.</li>
+                </ul>
+            </div>
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9IpjHfh-z2Jh7Y5yEvmA1-18Mcw0TYlbQKQ&s" class="content-image">
+        </div>
+
+        <div id="diagnosis" class="content-section">
+            <div class="content-text">
+                <h2>Diagnosis</h2>
+                <ul>
+                    <li>Electrocardiogram (ECG): Measures electrical activity of the heart.</li>
+                    <li>Echocardiogram: Uses sound waves to create heart images.</li>
+                    <li>Stress Test: Measures heart function during exercise.</li>
+                    <li>Coronary Angiography: Uses X-rays to check blood flow.</li>
+                    <li>Blood Tests: To check cholesterol and blood sugar levels.</li>
+                </ul>
+            </div>
+            <img src="https://www.scripps.org/sparkle-assets/images/blood_test_samples_1200x750-59cd6b99366c6e716576ccd68351ed39.jpg" class="content-image">
+        </div>
+
+        <div id="treatment" class="content-section">
+            <div class="content-text">
+                <h2>Treatment</h2>
+                <ul>
+                    <li>Lifestyle Changes: Diet modification, physical activity, and quitting smoking.</li>
+                    <li>Medications: Statins, beta-blockers, ACE inhibitors, and anticoagulants.</li>
+                    <li>Procedures:</li>
+                    <ul>
+                        <li>Angioplasty and Stenting.</li>
+                        <li>Coronary Artery Bypass Grafting (CABG).</li>
+                        <li>Implantable Devices like pacemakers.</li>
+                    </ul>
+                </ul>
+            </div>
+            <img src="https://medlineplus.gov/images/Medicines_share.jpg" class="content-image">
+        </div>
+
+        <div id="prevention" class="content-section">
+            <div class="content-text">
+                <h2>Prevention</h2>
+                <ul>
+                    <li>Maintain a Healthy Diet.</li>
+                    <li>Exercise Regularly.</li>
+                    <li>Quit Smoking.</li>
+                    <li>Manage Stress.</li>
+                    <li>Control Blood Pressure and Cholesterol.</li>
+                    <li>Maintain a Healthy Weight.</li>
+                    <li>Regular Check-ups.</li>
+                </ul>
+            </div>
+            <img src="https://static.writearn.in/1685046074541_consisten-exercise-helps-anxiety-and-stress-1440x810_jpg.jpg" class="content-image">
+        </div>
+
+        <div id="trends" class="content-section">
+            <div class="content-text">
+                <h2>Recent Trends</h2>
+                <p>Recent studies focus on understanding the genetic predispositions to heart disease, improving non-invasive diagnostic techniques, and enhancing personalized treatment plans. Additionally, wearable health tech and AI-based analysis are playing pivotal roles in early detection and continuous monitoring.</p>
+            </div>
+            <img src="https://miro.medium.com/v2/resize:fit:1200/format:webp/1*ZkpbhBL-KlIcRyoZCPdBSg.jpeg" class="content-image">
+        </div>
+    </div>
+
+    <footer>
+        © 2024 Heart Disease Analysis. All rights reserved.
+    </footer>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const sections = document.querySelectorAll('.content-section');
+            const buttons = document.querySelectorAll('.nav-button');
+
+            function showSection(targetId) {
+                sections.forEach(section => {
+                    if (section.id === targetId) {
+                        section.classList.add('active');
+                        section.style.opacity = 1;
+                    } else {
+                        section.classList.remove('active');
+                        section.style.opacity = 0;
+                    }
+                });
+            }
+
+            buttons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const targetId = button.getAttribute('data-target');
+                    const currentlyActive = document.querySelector('.content-section.active');
+                    if (currentlyActive) {
+                        currentlyActive.style.opacity = 0;
+                        setTimeout(() => {
+                            currentlyActive.classList.remove('active');
+                            showSection(targetId);
+                        }, 500); 
+                    } else {
+                        showSection(targetId);
+                    }
+                });
+            });
+
+            showSection('definition');
+            document.getElementById('definition').style.opacity = 1;
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analysis</title>
+    <style>
+        /* Reset default margin and padding */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: white; /* White background for the body */
+            color: black; /* Black text color */
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: black; /* Black background for the header */
+            color: white; /* White text color */
+            text-align: center;
+            padding: 1rem;
+        }
+
+        header h1 {
+            font-size: 2rem; /* Adjust font size as needed */
+            margin-top:3%;
+        }
+        .back {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            display: inline-block;
+            padding: 10px 20px;
+            border-radius: 20px;
+            border: 2px solid lightblue;
+            background-color: lightblue;
+            color: black;
+            text-align: center;
+            line-height: 1.5;
+            font-size: 1rem;
+            font-weight: bold;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            z-index: 3;
+        }
+        .back:hover {
+            border-color: darkblue;
+            background-color: darkblue;
+            color: white;
+        }
+
+        main {
+            max-width: 2000px; /* Increase max-width for larger charts */
+            margin: 0 auto; /* Center align main content */
+            
+        }
+
+        canvas {
+            display: block;
+            width: 1000px; /* Set a fixed width for the canvas */
+            height: 400px; /* Adjust height as needed */
+            margin: 0 auto; /* Center align the canvas */
+            border: 1px solid black;
+        }
+        
+        .Section{
+            border: 2px solid black;
+            padding: 10px;
+            margin:2%;
+            padding-left:1.5%;
+        }
+
+        ol{
+            margin-left:3%;
+        }
+
+        ul{
+            margin-left:5%;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 20px;
+            margin-top:3%;
+        }
+
+        .nav-button {
+            padding: 10px 20px;
+            border-radius: 20px;
+            border: 2px solid white;
+            background-color: transparent;
+            color: white;
+            text-align: center;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .nav-button:hover {
+            border-color: black;
+            background-color: white;
+            color: black;
+        }
+    </style>
+</head>
+<body>
+    <a href="{% url 'homepage' %}#mainContent" class="back">Back</a>
+    <header>
+        <h1>Analysis Based On Past Data 📊</h1>
+        <div class="navigation">
+            <button class="nav-button" onclick="window.location.href='{% url 'exang' %}'">Exercise-Induced Angina Analysis</button>
+            <button class="nav-button" onclick="window.location.href='{% url 'chestpain' %}'">Chest Pain Analysis</button>
+            <button class="nav-button" onclick="window.location.href='{% url 'fastbs' %}'">Fasting Blood Sugar Analysis</button>
+            <button class="nav-button" onclick="window.location.href='{% url 'restingelectro' %}'">Resting Electrocardiogram Analysis</button>
+            <button class="nav-button" onclick="window.location.href='{% url 'slope' %}'">Slope Analysis</button>
+            <button class="nav-button" onclick="window.location.href='{% url 'bloodves' %}'">Blood Vessel Count Analysis</button>
+            <button class="nav-button" onclick="window.location.href='{% url 'restingBP' %}'">Resting Blood Pressure</button>
+        </div>
+    </header>
+    <main>    
+        <div class="Section">
+            <h1>Number of Major Blood Vessels with Respect to Cardiovascular Disease (CVD)</h1>
+
+            <h2>Definition</h2>
+            <p>
+                The <strong>number of major blood vessels</strong> refers to the extent to which key coronary arteries supplying blood to the heart are affected, either through 
+                <strong>narrowing (stenosis)</strong> or <strong>blockage</strong> due to plaque buildup. Coronary arteries ensure that the heart receives oxygen-rich blood, and when 
+                one or more of these vessels become obstructed, the heart muscle can be deprived of oxygen, leading to <em>coronary artery disease (CAD)</em> or other cardiovascular issues.
+            </p>
+            <p>The following numbers indicate the severity of vessel involvement:</p>
+            <ul>
+                <li><strong>0:</strong> No major vessels narrowed or blocked. Indicates good cardiovascular health.</li>
+                <li><strong>1:</strong> One major vessel affected. Represents moderate risk for heart disease, requiring monitoring and possible intervention.</li>
+                <li><strong>2:</strong> Two major vessels affected. Indicates higher risk for CVD, with the need for active treatment or management.</li>
+                <li><strong>3:</strong> Three major vessels affected. Reflects severe coronary artery disease, often necessitating surgical intervention (e.g., bypass surgery) or intensive medical management.</li>
+            </ul>
+            <br>
+            <h2>Causes of Major Vessel Narrowing or Blockage</h2>
+            <ul>
+                <li><strong>Atherosclerosis:</strong> Buildup of fatty deposits (plaques) in the walls of arteries, reducing blood flow.</li>
+                <li><strong>High Blood Pressure:</strong> Puts stress on artery walls, leading to thickening and narrowing of vessels.</li>
+                <li><strong>High Cholesterol Levels:</strong> LDL (bad) cholesterol promotes plaque formation in the arteries.</li>
+                <li><strong>Smoking:</strong> Damages the inner lining of blood vessels and promotes plaque buildup.</li>
+                <li><strong>Diabetes:</strong> Causes inflammation and damage to blood vessels, increasing the risk of narrowing.</li>
+                <li><strong>Obesity and Sedentary Lifestyle:</strong> Contribute to risk factors like hypertension, high cholesterol, and insulin resistance.</li>
+            </ul>
+            <br>
+            <h2>Effects of Narrowed or Blocked Blood Vessels on Cardiovascular Health</h2>
+
+            <h3>0 Affected Vessels</h3>
+            <p>Indicates good cardiovascular health with low or no risk for coronary artery disease.</p>
+
+            <h3>1 Affected Vessel</h3>
+            <ul>
+                <li><strong>Effect:</strong> Mild reduction in blood flow to the heart.</li>
+                <li><strong>Risk:</strong> May cause angina (chest pain) during physical exertion; requires lifestyle modifications and possibly medication to prevent progression.</li>
+            </ul>
+
+            <h3>2 Affected Vessels</h3>
+            <ul>
+                <li><strong>Effect:</strong> More significant reduction in blood flow, affecting heart function.</li>
+                <li><strong>Risk:</strong> Increased likelihood of heart attacks or other cardiovascular events; usually managed with medications or angioplasty.</li>
+            </ul>
+
+            <h3>3 Affected Vessels</h3>
+            <ul>
+                <li><strong>Effect:</strong> Severe reduction in blood supply, compromising heart function.</li>
+                <li><strong>Risk:</strong> High chance of heart failure or life-threatening heart attacks; often requires <strong>surgical interventions</strong> like coronary artery bypass grafting (CABG).</li>
+            </ul>
+            <br>
+            <h2>Prevention Strategies for Managing Vessel Narrowing and Blockage</h2>
+
+            <h3>1. Healthy Diet</h3>
+            <ul>
+                <li><strong>Avoid saturated and trans fats:</strong> Reduces cholesterol buildup in arteries.</li>
+                <li><strong>Increase intake of fruits, vegetables, and whole grains:</strong> Helps control blood pressure and cholesterol levels.</li>
+            </ul>
+
+            <h3>2. Regular Physical Activity</h3>
+            <ul>
+                <li><strong>Aerobic exercise:</strong> Activities like walking, jogging, or swimming improve heart health.</li>
+                <li><strong>Daily activity:</strong> Helps maintain a healthy weight and reduces blood pressure and cholesterol.</li>
+            </ul>
+
+            <h3>3. Smoking Cessation</h3>
+            <p>Stopping smoking reduces the risk of plaque buildup and damage to blood vessels.</p>
+
+            <h3>4. Managing Blood Pressure and Diabetes</h3>
+            <ul>
+                <li><strong>Monitoring and medication:</strong> Regular check-ups and medication can help control these conditions.</li>
+                <li><strong>Lifestyle changes:</strong> Diet and exercise are critical for managing blood pressure and diabetes effectively.</li>
+            </ul>
+
+            <h3>5. Cholesterol Management</h3>
+            <ul>
+                <li><strong>Use of statins:</strong> If prescribed, statins can help lower cholesterol levels.</li>
+                <li><strong>Increase HDL (good) cholesterol:</strong> Achieved through diet and physical activity.</li>
+            </ul>
+
+            <h3>6. Regular Medical Check-Ups</h3>
+            <ul>
+                <li><strong>Early detection:</strong> Tests like angiography or stress tests allow timely intervention.</li>
+                <li><strong>Prevention:</strong> Routine health checks can prevent progression from one vessel to multiple vessel disease.</li>
+            </ul>
+            <br>
+            <h2>Conclusion</h2>
+            <p>
+                The <strong>number of major blood vessels affected</strong> plays a crucial role in determining the severity of cardiovascular disease and guiding appropriate treatment strategies. 
+                While no affected vessels (0) reflect good cardiovascular health, narrowing or blockage of one or more vessels increases the risk of heart attacks and requires lifestyle modifications, 
+                medications, or surgical intervention. Following preventive strategies such as <strong>a healthy diet, regular exercise, quitting smoking, and managing risk factors</strong> 
+                like hypertension and diabetes can reduce the number of affected vessels and improve overall heart health.
+            </p>
+            <br>
+            <p>This chart visualizes the relationship of Fasting Blood Sugar with respect to both genders of each age respectively and the likelihood of having heart disease.</p>
+                <ol type="1">
+                    <li><b>Gender Categories (0 = Female, 1 = Male):</b></li>
+                    <ul>
+                        <li>The chart shows two stacked sections for each age group.</li>
+                        <li>The blue bar represents male individuals in that age group.</li>
+                        <li>The pink bar represents female individuals in that age group.</li>
+                    </ul>
+                    <li><b>Segregation based On number of major blood vessels affected (0 = No major vessels narrowed or blocked, 1 = One major Blood vessel affected, 2 = 2 major Blood vessel affected, 3 = 3 major Blood vessel affected):</b></li>
+                    <ul>
+                        <li>Sky Blue =  Males who have No major vessels narrowed or blocked. </li>
+                        <li>Light Blue =  Males who have One major Blood vessel affected.</li>
+                        <li>Blue =  Males who have 2 major Blood vessel affected. </li>
+                        <li>Dark Blue =  Males who have 3 major Blood vessel affected.</li>
+                        <li>Light Pink =  Females who have No major vessels narrowed or blocked. </li>
+                        <li>Pink =  Females who have One major Blood vessel affected.</li>
+                        <li>Dark Pink =  Females who have 2 major Blood vessel affected. </li>
+                        <li>Maroon =  Females who have 3 major Blood vessel affected.</li>
+                    </ul>
+            <canvas id="slopeChart"></canvas>
+        </div>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        const chartData = {{ chart_data|safe }};  // Data from Django backend
+    
+        // Extract unique ages and prepare datasets for Chart.js
+        const ages = [...new Set(chartData.map(item => item.age))];
+    
+        const maleData = ages.map(age => {
+            const entry = chartData.find(item => item.age === age && item.gender === 1) || {};
+            return {
+                none: entry[0] || 0,
+                one: entry[1] || 0,
+                two: entry[2] || 0,
+                three: entry[3] || 0,
+            };
+        });
+    
+        const femaleData = ages.map(age => {
+            const entry = chartData.find(item => item.age === age && item.gender === 0) || {};
+            return {
+                none: entry[0] || 0,
+                one: entry[1] || 0,
+                two: entry[2] || 0,
+                three: entry[3] || 0,
+            };
+        });
+    
+        const ctx = document.getElementById('slopeChart').getContext('2d');
+        const anginaChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ages,
+                datasets: [
+                    // Male datasets
+                    {
+                        label: 'Male - No major vessels narrowed or blocked',
+                        data: maleData.map(data => data.none),
+                        backgroundColor: '#00ffe1',
+                        stack: 'male',
+                    },
+                    {
+                        label: 'Male - One major vessel affected',
+                        data: maleData.map(data => data.one),
+                        backgroundColor: '#0080ff',
+                        stack: 'male',
+                    },
+                    {
+                        label: 'Male - Two major vessels affected',
+                        data: maleData.map(data => data.two),
+                        backgroundColor: '#0800ff',
+                        stack: 'male',
+                    },
+                    {
+                        label: 'Male - Three major vessels affected',
+                        data: maleData.map(data => data.three),
+                        backgroundColor: '#040161',
+                        stack: 'male',
+                    },
+                    // Female datasets
+                    {
+                        label: 'Female - No major vessels narrowed or blocked',
+                        data: femaleData.map(data => data.none),
+                        backgroundColor: '#cf47f5',
+                        stack: 'female',
+                    },
+                    {
+                        label: 'Female - One major vessel affected',
+                        data: femaleData.map(data => data.one),
+                        backgroundColor: '#9004b8',
+                        stack: 'female',
+                    },
+                    {
+                        label: 'Female - Two major vessels affected',
+                        data: femaleData.map(data => data.two),
+                        backgroundColor: '#700156',
+                        stack: 'female',
+                    },
+                    {
+                        label: 'Female - Three major vessels affected',
+                        data: femaleData.map(data => data.three),
+                        backgroundColor: '#61021e',
+                        stack: 'female',
+                    },
+                ]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: true,
+                        text: 'Stacked Bar Chart: Number of Blood Vessels Analysis by Age and Gender'
+                    }
+                },
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Age'
+                        }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Number of People In each Age divided on Gender'
+                        },
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+    
+</body>
+</html>
